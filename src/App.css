@@ -1,0 +1,30 @@
+body {
+  background-color: white;
+}
+li {
+  list-style: none;
+}
+.flex {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: top;
+}
+.column {
+  max-height: 90vh;
+  width: 45%;
+}
+.column textarea {
+  width: 100%;
+}
+@media print {
+  .column {
+    max-height: none;
+  }
+  .hide-print {
+    display: none;
+  }
+  .flex {
+    display: block;
+  }
+}
