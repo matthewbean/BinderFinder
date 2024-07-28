@@ -11,10 +11,12 @@ function Input({
   submit,
   mergeCommander,
   setMergeCommander,
+  loading,
 }: {
   submit: Function;
   mergeCommander: boolean;
   setMergeCommander: Function;
+  loading: boolean;
 }) {
   const [input, setInput] = useState("");
   return (
@@ -28,6 +30,7 @@ function Input({
       ></Textarea>
       <div>
         <Button
+          isLoading={loading}
           mt="1rem"
           onClick={() => {
             submit(

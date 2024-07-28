@@ -4,20 +4,18 @@ import {
   CardHeader,
   CardBody,
   Heading,
-  Stack,
   Box,
-  StackDivider,
   Text,
-  ButtonGroup,
   FormControl,
   FormLabel,
   Switch,
+  Spinner,
 } from "@chakra-ui/react";
 import setsymbolsinfo from "../utils/setsymbolsinfo.json";
 import { buildManaSymbols, buildSetymbols } from "../utils/builderFunctions";
 import { COLORLESS_ICON } from "../utils/constants";
 
-function Output({ cards, sets, mergeCommander, setMergeCommander }) {
+function Output({ cards, sets, mergeCommander, setMergeCommander, loading }) {
   const cmc: { [key: string]: any } = {};
   for (const card of cards) {
     if (card.mana_cost) {
@@ -26,6 +24,7 @@ function Output({ cards, sets, mergeCommander, setMergeCommander }) {
       cmc[card.name] = COLORLESS_ICON;
     }
   }
+
   return (
     <Box m="1rem">
       <FormControl display="flex" alignItems="center">
@@ -39,9 +38,11 @@ function Output({ cards, sets, mergeCommander, setMergeCommander }) {
         />
       </FormControl>
 
-      {cards &&
+      {loading ? (
+        <Spinner color="purple.500" />
+      ) : (
+        cards &&
         Object.keys(sets)
-
           .sort((a, b) => sets[b].size - sets[a].size)
           .map((key) => (
             <Card marginBottom="1rem">
@@ -56,11 +57,7 @@ function Output({ cards, sets, mergeCommander, setMergeCommander }) {
 
               <CardBody paddingTop={0}>
                 {[...sets[key]].map((item) => (
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
+                  <Box display="flex" alignItems="center">
                     {buildManaSymbols(cmc[item])}
                     <Text
                       display="inline-block"
@@ -73,7 +70,8 @@ function Output({ cards, sets, mergeCommander, setMergeCommander }) {
                 ))}
               </CardBody>
             </Card>
-          ))}
+          ))
+      )}
     </Box>
   );
 }
