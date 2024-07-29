@@ -23,6 +23,7 @@ function Input({
     <Box m="1rem">
       <Textarea
         m="0"
+        height="80vh"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         name="cards_search"

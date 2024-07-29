@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import AlertContext from "../context/alertContext";
 import supabase from "../utils/supabase";
 import Input from "../components/Input";
+import Nav from "../components/Nav";
 import { Heading } from "@chakra-ui/react";
 import { buildManaSymbols } from "../utils/builderFunctions";
 import { COLORLESS_ICON } from "../utils/constants";
@@ -76,7 +77,6 @@ function Page() {
 
   return (
     <>
-      <Heading textAlign="center">Binder Finder</Heading>
       <div className="flex">
         <div className="column hide-print">
           <Input submit={submit} loading={loading} />

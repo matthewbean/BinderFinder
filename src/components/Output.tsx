@@ -37,41 +37,42 @@ function Output({ cards, sets, mergeCommander, setMergeCommander, loading }) {
           onChange={() => setMergeCommander(!mergeCommander)}
         />
       </FormControl>
-
-      {loading ? (
-        <Spinner color="purple.500" />
-      ) : (
-        cards &&
-        Object.keys(sets)
-          .sort((a, b) => sets[b].size - sets[a].size)
-          .map((key) => (
-            <Card marginBottom="1rem">
-              <CardHeader>
-                <Heading size="sm" display="flex" alignItems="center">
-                  {buildSetymbols(key as keyof typeof setsymbolsinfo)}
-                  <Text marginLeft={".25rem"} fontSize="lg">
-                    {key}
-                  </Text>
-                </Heading>
-              </CardHeader>
-
-              <CardBody paddingTop={0}>
-                {[...sets[key]].map((item) => (
-                  <Box display="flex" alignItems="center">
-                    {buildManaSymbols(cmc[item])}
-                    <Text
-                      display="inline-block"
-                      marginLeft={".25rem"}
-                      fontSize="sm"
-                    >
-                      {item}
+      <Box p=".5rem" maxHeight="600px" overflowY="scroll">
+        {loading ? (
+          <Spinner color="purple.500" />
+        ) : (
+          cards &&
+          Object.keys(sets)
+            .sort((a, b) => sets[b].size - sets[a].size)
+            .map((key) => (
+              <Card marginBottom="1rem">
+                <CardHeader>
+                  <Heading size="sm" display="flex" alignItems="center">
+                    {buildSetymbols(key as keyof typeof setsymbolsinfo)}
+                    <Text marginLeft={".25rem"} fontSize="lg">
+                      {key}
                     </Text>
-                  </Box>
-                ))}
-              </CardBody>
-            </Card>
-          ))
-      )}
+                  </Heading>
+                </CardHeader>
+
+                <CardBody paddingTop={0}>
+                  {[...sets[key]].map((item) => (
+                    <Box display="flex" alignItems="center">
+                      {buildManaSymbols(cmc[item])}
+                      <Text
+                        display="inline-block"
+                        marginLeft={".25rem"}
+                        fontSize="sm"
+                      >
+                        {item}
+                      </Text>
+                    </Box>
+                  ))}
+                </CardBody>
+              </Card>
+            ))
+        )}
+      </Box>
     </Box>
   );
 }
