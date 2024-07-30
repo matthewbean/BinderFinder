@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -27,12 +26,15 @@ function Output({ cards, sets, mergeCommander, setMergeCommander, loading }) {
 
   return (
     <Box m="1rem">
+      <Heading size="md">Results</Heading>
+      <Text fontSize="sm"></Text>
       <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="commander" mb="0">
-          Merge Commanger Sets
+        <FormLabel fontSize="sm" htmlFor="commander" mb="0">
+          Merge Commander Sets
         </FormLabel>
         <Switch
           id="commander"
+          size="sm"
           isChecked={mergeCommander}
           onChange={() => setMergeCommander(!mergeCommander)}
         />

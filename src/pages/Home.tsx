@@ -2,10 +2,7 @@ import { useState, useContext } from "react";
 import AlertContext from "../context/alertContext";
 import supabase from "../utils/supabase";
 import Input from "../components/Input";
-import Nav from "../components/Nav";
-import { Heading } from "@chakra-ui/react";
-import { buildManaSymbols } from "../utils/builderFunctions";
-import { COLORLESS_ICON } from "../utils/constants";
+
 import Output from "../components/Output";
 function Page() {
   const { createAlert } = useContext(AlertContext);
@@ -64,7 +61,11 @@ function Page() {
   for (const card of cards) {
     for (const set_name of JSON.parse(card.set_name)) {
       if (mergeCommander && set_name.includes("Commander")) {
-        sets.Commander = new Set([card.name]);
+        if (sets["Commander"]) {
+          sets.Commander.add(card.name);
+        } else {
+          sets.Commander = new Set([card.name]);
+        }
       } else {
         if (!sets[set_name]) {
           sets[set_name] = new Set([card.name]);

@@ -1,16 +1,8 @@
 import { useState } from "react";
-import { Box, Textarea } from "@chakra-ui/react";
-import {
-  Button,
-  ButtonGroup,
-  FormControl,
-  FormLabel,
-  Switch,
-} from "@chakra-ui/react";
+import { Box, Heading, Textarea } from "@chakra-ui/react";
+import { Button, FormLabel } from "@chakra-ui/react";
 function Input({
   submit,
-  mergeCommander,
-  setMergeCommander,
   loading,
 }: {
   submit: Function;
@@ -21,6 +13,10 @@ function Input({
   const [input, setInput] = useState("");
   return (
     <Box m="1rem">
+      <Heading size="md">Card List</Heading>
+      <FormLabel fontSize="sm" htmlFor="cards_search" mb="0">
+        Enter one card per line
+      </FormLabel>
       <Textarea
         m="0"
         height="80vh"
