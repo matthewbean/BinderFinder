@@ -17,6 +17,19 @@ li {
 .column textarea {
   width: 100%;
 }
+
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.libre-baskerville-bold {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 @media print {
   .column {
     max-height: none;

@@ -4,6 +4,7 @@ import supabase from "../utils/supabase";
 import Input from "../components/Input";
 
 import Output from "../components/Output";
+import { Box } from "@chakra-ui/react";
 function Page() {
   const { createAlert } = useContext(AlertContext);
   const [cards, setCards] = useState<any>([]);
@@ -19,7 +20,6 @@ function Page() {
           description: "Please enter at least one card name",
         });
       } else {
-        console.log("fetching");
         setLoading(true);
         let split = "name.ilike." + names.join(",name.ilike.");
         try {
@@ -30,11 +30,11 @@ function Page() {
           setCards(data);
           let hasSet = new Set();
           data?.forEach((item) => hasSet.add(item.name.toLowerCase()));
-          console.log("has", hasSet);
+
           let notHave = names
             .map((item) => item.replaceAll('"', ""))
             .filter((item: string) => !hasSet.has(item.toLowerCase()));
-          console.log("Dont have", notHave);
+
           if (notHave.length > 0) {
             createAlert({
               status: "error",
@@ -64,11 +64,11 @@ function Page() {
         if (sets["Commander"]) {
           sets.Commander.add(card.name);
         } else {
-          sets.Commander = new Set([card.name]);
+          sets.Commander = new Set<string>([card.name]);
         }
       } else {
         if (!sets[set_name]) {
-          sets[set_name] = new Set([card.name]);
+          sets[set_name] = new Set<string>([card.name]);
         } else {
           sets[set_name].add(card.name);
         }
@@ -82,7 +82,7 @@ function Page() {
         <div className="column hide-print">
           <Input submit={submit} loading={loading} />
         </div>
-        <div className="column">
+        <Box className="column">
           <Output
             loading={loading}
             setMergeCommander={setMergeCommander}
@@ -90,7 +90,7 @@ function Page() {
             cards={cards}
             sets={sets}
           />
-        </div>
+        </Box>
       </div>
     </>
   );

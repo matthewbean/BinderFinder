@@ -19,7 +19,7 @@ function Input({
       </FormLabel>
       <Textarea
         m="0"
-        height="80vh"
+        height="calc(100vh - 200px)"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         name="cards_search"

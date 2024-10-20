@@ -6,8 +6,9 @@ export function buildManaSymbols(string?: string) {
     return "";
   }
 
-  const symbols: string[] = string.match(/(\{.\})|(\/\/)/g);
-
+  const symbols: string[] | null = string.match(/(\{[^}]+\})|(\/\/)/g);
+  console.log(symbols);
+  if (!symbols) return "";
   return symbols.map((symbol) => {
     if (symbol === "//") {
       return (
@@ -24,17 +25,21 @@ export function buildManaSymbols(string?: string) {
     } else {
       return (
         <img
-          style={{ display: "inline-block" }}
-          src={`/card_symbols/${symbol}.svg`}
-          height="14px"
-          width="14px"
+          style={{
+            display: "inline-block",
+            position: "relative",
+            marginLeft: "2px",
+            top: "1px",
+          }}
+          src={`/card_symbols/${symbol.replace(/\//g, "|")}.svg`}
+          height="18px"
+          width="18px"
         />
       );
     }
   });
 }
 export function buildSetymbols(string?: keyof typeof setsymbolsinfo) {
-  console.log(setsymbolsinfo[string]);
   if (!string || !setsymbolsinfo[string]) {
     return "";
   }
