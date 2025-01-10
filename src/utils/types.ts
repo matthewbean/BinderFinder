@@ -22,14 +22,20 @@ interface card {
 }
 
 export interface alert {
-  status: "info" | "warning" | "success" | "error" | "loading" | undefined;
+  type: "info" | "warning" | "success" | "error" | undefined;
   title: string;
   description: string;
+  duration?: number;
 }
 export interface OutputProps {
+  darkMode: boolean;
   cards: card[];
   sets: Set<string>;
   mergeCommander: boolean;
   setMergeCommander: Function;
   loading: boolean;
+}
+
+export interface AlertContextValue {
+  createAlert: (alert: alert) => void;
 }

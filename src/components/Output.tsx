@@ -5,24 +5,25 @@ import {
   Heading,
   Box,
   Text,
-  FormControl,
-  FormLabel,
-  Switch,
   Spinner,
 } from "@chakra-ui/react";
 import setsymbolsinfo from "../utils/setsymbolsinfo.json";
-import { buildManaSymbols, buildSetymbols } from "../utils/builderFunctions";
-import { COLORLESS_ICON } from "../utils/constants";
+import {
+  buildManaSymbols,
+  buildSetymbols,
+  makeColor,
+} from "../utils/builderFunctions";
+import { Switch } from "@/components/ui/switch";
 import { OutputProps } from "../utils/types";
 
 function Output({
+  darkMode,
   cards,
   sets,
   mergeCommander,
   setMergeCommander,
   loading,
 }: OutputProps) {
-  console.log(cards, sets);
   const cmc: { [key: string]: any } = {};
   if (cards !== null) {
     for (const card of cards) {
@@ -38,71 +39,87 @@ function Output({
     <Box m="1rem">
       <Heading size="md">Results</Heading>
       <Text fontSize="sm"></Text>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel fontSize="sm" htmlFor="commander" mb="0">
-          Merge Commander Sets
-        </FormLabel>
-        <Switch
-          id="commander"
-          size="sm"
-          isChecked={mergeCommander}
-          onChange={() => setMergeCommander(!mergeCommander)}
-        />
-      </FormControl>
+      <Switch
+        marginBottom="9px"
+        id="commander"
+        size="sm"
+        checked={mergeCommander}
+        onChange={() => setMergeCommander(!mergeCommander)}
+      >
+        Merge Commander Sets
+      </Switch>
       <Box
-        p=".5rem"
+        bg="bg"
+        p="1rem"
         maxHeight="600px"
         overflowY="auto"
         border="solid 1px"
-        borderColor="gray.200"
+        borderColor="bg.emphasized"
         borderRadius="5px"
         height="calc(100vh - 200px)"
       >
         {loading ? (
-          <Spinner color="purple.500" />
+          <Box
+            width="100%"
+            height="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Spinner color="teal" />
+          </Box>
         ) : (
           cards &&
           (Object.keys(sets) as Array<keyof typeof sets>)
             .sort((a, b) => sets[b].size - sets[a].size)
             .map((key) => (
-              <Card margin="1rem">
-                <CardHeader>
+              <Card.Root mb="1rem" p=".5rem" bg="bg.muted">
+                <Card.Header p="1rem">
                   <Heading size="sm" display="flex" alignItems="center">
-                    {buildSetymbols(key as keyof typeof setsymbolsinfo)}
+                    {buildSetymbols(
+                      darkMode,
+                      key as keyof typeof setsymbolsinfo
+                    )}
                     <Text marginLeft={".25rem"} fontSize="lg">
                       {key}
                     </Text>
                   </Heading>
-                </CardHeader>
+                </Card.Header>
 
-                <CardBody paddingTop={0}>
-                  {[...sets[key]].map((item) => (
-                    <Card
-                      border=".75rem solid black"
-                      bg="green.50"
-                      borderBottom="none"
-                      borderRadius="5px 5px 0 0 "
-                      marginBottom=".25rem"
-                    >
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="space-between"
-                        p=".25rem .5rem"
+                <Card.Body p="1rem" paddingTop={0}>
+                  {[...sets[key]].map((item) => {
+                    return (
+                      <Card.Body
+                        border="10px solid"
+                        borderColor="black"
+                        bg={makeColor(cmc[item], darkMode)}
+                        borderBottom="none"
+                        borderRadius="5px 5px 0 0 "
+                        marginBottom=".25rem"
+                        padding=".25rem"
                       >
-                        <Text
-                          display="inline-block"
-                          fontSize="sm"
-                          className="libre-baskerville-bold"
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
+                          p=".25rem .5rem"
                         >
-                          {item}
-                        </Text>
-                        <Text>{buildManaSymbols(cmc[item])}</Text>
-                      </Box>
-                    </Card>
-                  ))}
-                </CardBody>
-              </Card>
+                          <Text
+                            display="inline-block"
+                            fontSize="sm"
+                            color="black"
+                            fontWeight="bold"
+                            fontFamily="libre-baskerville-bold"
+                          >
+                            {item}
+                          </Text>
+                          <Box>{buildManaSymbols(cmc[item])}</Box>
+                        </Box>
+                      </Card.Body>
+                    );
+                  })}
+                </Card.Body>
+              </Card.Root>
             ))
         )}
       </Box>

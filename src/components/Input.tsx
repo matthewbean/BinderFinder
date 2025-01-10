@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Box, Heading, Textarea } from "@chakra-ui/react";
-import { Button, FormLabel } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import { Button } from "@/components/ui/button";
+
 function Input({
   submit,
   loading,
@@ -14,21 +16,25 @@ function Input({
   return (
     <Box m="1rem">
       <Heading size="md">Card List</Heading>
-      <FormLabel fontSize="sm" htmlFor="cards_search" mb="0">
-        Enter one card per line
-      </FormLabel>
-      <Textarea
-        m="0"
-        height="calc(100vh - 200px)"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        name="cards_search"
-        id="cards_search"
-      ></Textarea>
+      <Field label="Enter Cards">
+        <Textarea
+          colorPalette="teal"
+          bg="bg"
+          m="0"
+          height="calc(100vh - 200px)"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          name="cards_search"
+          id="cards_search"
+          borderColor="bg.emphasized"
+        />
+      </Field>
       <div>
         <Button
-          isLoading={loading}
+          loading={loading}
           mt="1rem"
+          variant="surface"
+          colorPalette="teal"
           onClick={() => {
             submit(
               input
@@ -37,7 +43,6 @@ function Input({
                 .map((item) => `"${item}"`)
             );
           }}
-          colorScheme="purple"
         >
           Submit
         </Button>
