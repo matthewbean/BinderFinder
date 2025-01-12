@@ -8,7 +8,7 @@ import { Box } from "@chakra-ui/react";
 import { AlertContextValue } from "../utils/types";
 import { Container } from "@chakra-ui/react";
 
-function Page() {
+function Home() {
   const { createAlert }: AlertContextValue = useContext(AlertContext);
   const [cards, setCards] = useState<any>([]);
   const [mergeCommander, setMergeCommander] = useState<boolean>(false);
@@ -38,6 +38,9 @@ function Page() {
             .from("cards")
             .select("name,set_name,price,mana_cost")
             .or(split);
+          if (!data)
+            throw new Error("Unable fetch data, please try again later.");
+
           setCards(data);
           let hasSet = new Set();
           data?.forEach((item) => hasSet.add(item.name.toLowerCase()));
@@ -55,6 +58,7 @@ function Page() {
             });
           }
         } catch (error) {
+          console.error(error);
           createAlert({
             type: "error",
             title: "Unable to fetch binders",
@@ -112,4 +116,4 @@ function Page() {
     </>
   );
 }
-export default Page;
+export default Home;
