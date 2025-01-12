@@ -5,12 +5,29 @@ import { Container } from "@chakra-ui/react";
 export default function Nav() {
   return (
     <>
-      <Box px={4} bg="teal.muted">
+      <Box bg="teal.muted">
         <Container>
-          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+          <Flex h={12} alignItems={"center"} justifyContent={"space-between"}>
             <HStack spacing={8} alignItems={"center"}>
-              <Heading>Binder Finder</Heading>
-              {/* <ColorModeButton /> */}
+              <Heading>
+                <img
+                  style={{
+                    display: "inline-block",
+                    position: "relative",
+                    marginLeft: "0px",
+                    top: "-3px",
+                  }}
+                  src={`/icons/binder${
+                    window.matchMedia &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches
+                      ? ""
+                      : "_black"
+                  }.png`}
+                  height="18px"
+                  width="18px"
+                />
+                Binder Finder
+              </Heading>
             </HStack>
             <Flex alignItems={"center"}></Flex>
           </Flex>

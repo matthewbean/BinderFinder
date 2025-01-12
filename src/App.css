@@ -31,6 +31,17 @@ li {
 }
 
 @media print {
+  .hide_print {
+    display: none;
+  }
+  .print-large {
+    width: 90vw;
+    border: none !important;
+  }
+  .print-large * {
+    border: none !important;
+  }
+
   .column {
     max-height: none;
   }

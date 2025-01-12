@@ -14,7 +14,7 @@ function Input({
 }) {
   const [input, setInput] = useState("");
   return (
-    <Box m="1rem">
+    <Box my="1rem" className="hide_print">
       <Heading size="md">Card List</Heading>
       <Field label="Enter Cards">
         <Textarea
@@ -29,24 +29,23 @@ function Input({
           borderColor="bg.emphasized"
         />
       </Field>
-      <div>
-        <Button
-          loading={loading}
-          mt="1rem"
-          variant="surface"
-          colorPalette="teal"
-          onClick={() => {
-            submit(
-              input
-                .split(/\n/)
-                .filter((str) => str !== "")
-                .map((item) => `"${item}"`)
-            );
-          }}
-        >
-          Submit
-        </Button>
-      </div>
+
+      <Button
+        loading={loading}
+        mt="1rem"
+        variant="surface"
+        colorPalette="teal"
+        onClick={() => {
+          submit(
+            input
+              .split(/\n/)
+              .filter((str) => str !== "")
+              .map((item) => `"${item}"`)
+          );
+        }}
+      >
+        Submit
+      </Button>
     </Box>
   );
 }

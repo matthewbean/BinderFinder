@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Heading,
-  Box,
-  Text,
-  Spinner,
-} from "@chakra-ui/react";
+import { Card, Heading, Box, Text, Spinner, Button } from "@chakra-ui/react";
 import setsymbolsinfo from "../utils/setsymbolsinfo.json";
 import {
   buildManaSymbols,
@@ -57,6 +49,7 @@ function Output({
         borderColor="bg.emphasized"
         borderRadius="5px"
         height="calc(100vh - 200px)"
+        className="print-large"
       >
         {loading ? (
           <Box
@@ -123,6 +116,17 @@ function Output({
             ))
         )}
       </Box>
+      <Button
+        className="hide_print"
+        mt="1rem"
+        variant="surface"
+        colorPalette="gray"
+        onClick={() => {
+          window && window.print();
+        }}
+      >
+        Print
+      </Button>
     </Box>
   );
 }
