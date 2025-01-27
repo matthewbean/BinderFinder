@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  height: 100vh;
 }
 li {
   list-style: none;
@@ -31,24 +31,63 @@ li {
 }
 
 @media print {
-  .hide_print {
+  * {
+    font-size: 10px !important;
+  }
+  .hide-print {
     display: none;
   }
   .print-large {
     width: 90vw;
     border: none !important;
+    max-height: none !important;
+    height: auto !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
   }
   .print-large * {
     border: none !important;
+    width: 33%;
+    margin: 0;
+    padding: 0;
   }
 
   .column {
     max-height: none;
+    width: 100%;
   }
   .hide-print {
-    display: none;
+    display: none !important;
   }
   .flex {
     display: block;
+  }
+  .no-flex {
+    display: block;
+  }
+  .no-flex div {
+    display: block !important;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .no-flex h2 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .no-flex h2 p {
+    flex-grow: 1;
+    padding: 0;
+    margin: 0;
+  }
+  .no-flex h2 img {
+    display: none !important;
+  }
+  .chakra-container {
+    margin: 0;
   }
 }

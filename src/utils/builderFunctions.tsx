@@ -9,11 +9,11 @@ type Color =
   | "#F4F5F1"
   | "#D5BE89"
   | "#D6E0E5"
-  | "#DE744B"
-  | "#749E8C"
-  | "#5A9DCA"
-  | "#7D7474"
-  | "#B1B89B"
+  | "#FCAE90"
+  | "#8BC2AA"
+  | "#87C6F1"
+  | "#98907F"
+  | "#DDD1B3"
   | "#B49140"
   | "#84A2B1";
 const legend = new Map([
@@ -22,28 +22,29 @@ const legend = new Map([
   ["U", "#BAD6E9"],
   ["B", "#B0AAAA"],
   ["W", "#F4F5F1"],
-  ["DR", "#DE744B"],
-  ["DG", "#749E8C"],
-  ["DU", "#5A9DCA"],
-  ["DB", "#7D7474"],
-  ["DW", "#B1B89B"],
+  ["DR", "#FCAE90"],
+  ["DG", "#8BC2AA"],
+  ["DU", "#87C6F1"],
+  ["DB", "#98907F"],
+  ["DW", "#DDD1B3"],
 ]);
 
 export function makeColor(str?: string, darkMode?: boolean): Color {
+  console.log(str);
   let color: Color = darkMode ? "#84A2B1" : "#D6E0E5";
-
+  let set = new Set();
   if (str) {
     for (const letter of str) {
       if (legend.has(letter)) {
         if (color === "#D6E0E5" || color === "#84A2B1") {
-          console.log((darkMode ? "D" : "") + letter);
+          set.add(letter);
           color = legend.get((darkMode ? "D" : "") + letter) as Color;
-        } else if (legend.get(letter) !== color)
+        } else if (legend.get(letter) !== color && !set.has(letter))
           return darkMode ? "#B49140" : "#D5BE89";
       }
     }
   }
-  console.log(color);
+  // console.log(color);
   return color;
 }
 
@@ -71,6 +72,7 @@ export function buildManaSymbols(string?: string) {
     } else {
       return (
         <img
+          className="hide-print"
           style={{
             boxShadow: "#000 -1px 1px",
             borderRadius: "500px",

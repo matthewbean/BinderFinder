@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Card, Heading, Box, Text, Spinner, Button } from "@chakra-ui/react";
 import setsymbolsinfo from "../utils/setsymbolsinfo.json";
 import {
@@ -7,6 +8,7 @@ import {
 } from "../utils/builderFunctions";
 import { Switch } from "@/components/ui/switch";
 import { OutputProps } from "../utils/types";
+import Filters from "./Filters";
 
 function Output({
   darkMode,
@@ -27,12 +29,28 @@ function Output({
     }
   }
 
+  const [filters, setFilters] = useState<
+    { cardName: string; value: boolean }[]
+  >([]);
+
+  useEffect(() => {
+    const filterData = cards.map((card) => {
+      return {
+        cardName: card.name,
+        value: false,
+      };
+    });
+    setFilters(filterData);
+  }, []);
+
   return (
-    <Box m="1rem">
-      <Heading size="md">Results</Heading>
-      <Text fontSize="sm"></Text>
+    <Box my="1rem">
+      <Heading size="md" className="hide-print">
+        Results
+      </Heading>
       <Switch
         marginBottom="9px"
+        className="hide-print"
         id="commander"
         size="sm"
         checked={mergeCommander}
@@ -40,10 +58,10 @@ function Output({
       >
         Merge Commander Sets
       </Switch>
+      <Filters filters={filters} />
       <Box
         bg="bg"
         p="1rem"
-        maxHeight="600px"
         overflowY="auto"
         border="solid 1px"
         borderColor="bg.emphasized"
@@ -66,7 +84,7 @@ function Output({
           (Object.keys(sets) as Array<keyof typeof sets>)
             .sort((a, b) => sets[b].size - sets[a].size)
             .map((key) => (
-              <Card.Root mb="1rem" p=".5rem" bg="bg.muted">
+              <Card.Root className="no-flex" mb="1rem" p=".5rem" bg="bg.muted">
                 <Card.Header p="1rem">
                   <Heading size="sm" display="flex" alignItems="center">
                     {buildSetymbols(
@@ -117,7 +135,7 @@ function Output({
         )}
       </Box>
       <Button
-        className="hide_print"
+        className="hide-print"
         mt="1rem"
         variant="surface"
         colorPalette="gray"

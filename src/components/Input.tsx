@@ -14,10 +14,11 @@ function Input({
 }) {
   const [input, setInput] = useState("");
   return (
-    <Box my="1rem" className="hide_print">
+    <Box my="1rem" className="hide-print">
       <Heading size="md">Card List</Heading>
       <Field label="Enter Cards">
         <Textarea
+          placeholder="Please enter each card on a new line"
           colorPalette="teal"
           bg="bg"
           m="0"
